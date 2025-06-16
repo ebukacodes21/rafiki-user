@@ -18,27 +18,25 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-black">
       {/* Hero Section */}
-      <section
-        className="relative w-full h-[60vh] bg-cover bg-center flex items-center justify-center text-white"
-        style={{
-          backgroundImage: `url(${
-            firm?.CoverPhoto || "https://source.unsplash.com/legal"
-          })`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 text-center px-6 py-8 bg-white bg-opacity-70 rounded-lg shadow-lg max-w-4xl mx-auto">
-          <img
-            src={firm?.ProfilePhoto}
-            alt={firm?.Name}
-            className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-white"
-          />
-          <h1 className="text-4xl font-extrabold text-gray-800">
-            {firm?.Name}
-          </h1>
-          <p className="text-lg mt-2 text-gray-600">{firm?.Category}</p>
+      <div className="p-4 sm:p-6 lg:p-8 rounded-xl overflow-hidden">
+        <div className="space-y-4 mt-2">
+          <div
+            className="opacity-96 rounded-xl relative aspect-square md:aspect-[2.4/1] overflow-hidden"
+            style={{
+              backgroundImage: `url(${firm?.CoverPhoto})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
+              <div className="text-white font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs">
+                {firm?.Name}
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
 
       {/* About Section */}
       <section className="py-12 px-6 max-w-4xl mx-auto text-center">
@@ -133,7 +131,13 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <Link href={process.env.NEXT_PUBLIC_HOME_URL!} target="_blank" className="font-semibold">Powered by Rafiki — Your Legal Ally</Link>
+          <Link
+            href={process.env.NEXT_PUBLIC_HOME_URL!}
+            target="_blank"
+            className="font-semibold"
+          >
+            Powered by Rafiki — Your Legal Ally
+          </Link>
           <p className="text-lg text-gray-300">
             Simplifying legal access for firms, founders, and professionals.
           </p>
