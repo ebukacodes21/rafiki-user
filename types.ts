@@ -15,36 +15,36 @@ export type PaymentProvider = {
 };
 
 export type Firm = {
-  id: string;
-  coverPhoto?: string;
-  profilePhoto?: string;
-  name?: string;
-  category?: string;
-  description?: string;
-  founded?: string; 
-  location?: string;
-  email?: string;
-  phone?: string;
-  website?: string;
-  domain?: string;
-  subdomain?: string;
-  instagram?: string;
-  x?: string;
-  facebook?: string;
-  businessHours?: BusinessHours;
-  photos?: string[];
-  billboard?: Billboard;
-  theme?: string;
-  isOnboarded?: boolean;
-  subscriptionPlan?: string;
-  scans?: number;
-  qrCode?: string;
-  analytics?: Record<string, number>;
-  paymentProviders?: PaymentProvider[];
-  integrations?: string[];
-  createdAt?: string;
-  updatedAt?: string;
-}
+  Id: string;
+  CoverPhoto?: string;
+  ProfilePhoto?: string;
+  Name?: string;
+  Category?: string;
+  Description?: string;
+  Founded?: string;
+  Location?: string;
+  Email?: string;
+  Phone?: string;
+  Website?: string;
+  Domain?: string;
+  Subdomain?: string;
+  Instagram?: string;
+  X?: string;
+  Facebook?: string;
+  BusinessHours?: BusinessHours;
+  Photos?: string[];
+  Billboard?: Billboard;
+  Theme?: string;
+  IsOnboarded?: boolean;
+  SubscriptionPlan?: string;
+  Scans?: number;
+  QrCode?: string;
+  Analytics?: Record<string, number>;
+  PaymentProviders?: PaymentProvider[];
+  Integrations?: string[];
+  CreatedAt?: string;
+  UpdatedAt?: string;
+};
 
 export type InitialFirmState = {
     firm: Firm | null

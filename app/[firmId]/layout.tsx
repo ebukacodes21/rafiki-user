@@ -49,8 +49,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: firm.name,
-    description: firm.description,
+    title: firm.Name,
+    description: firm.Description,
   };
 }
 
