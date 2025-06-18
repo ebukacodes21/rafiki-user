@@ -14,6 +14,7 @@ export type PaymentProvider = {
 
 export type Firm = {
   _id: string;
+  adminId: string;
   name?: string;
   category?: string;
   description?: string;

@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import ReduxProvider from "@/redux/hooks/provider";
 import ReduxInitializer from "@/redux/hooks/initializer"; 
 import type { Firm } from "@/types"; 
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -81,6 +82,7 @@ export default async function Layout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReduxProvider>
           <ReduxInitializer firm={firm} />
+              <Toaster position="top-center" />
           {children}
         </ReduxProvider>
       </body>
