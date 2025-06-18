@@ -3,10 +3,8 @@ export type BusinessHours = {
 };
 
 export type Billboard = {
-  label: string;
   title: string;
-  description: string;
-  imageUrl: string;
+  image: string;
 };
 
 export type PaymentProvider = {
@@ -15,35 +13,32 @@ export type PaymentProvider = {
 };
 
 export type Firm = {
-  Id: string;
-  CoverPhoto?: string;
-  ProfilePhoto?: string;
-  Name?: string;
-  Category?: string;
-  Description?: string;
-  Founded?: string;
-  Location?: string;
-  Email?: string;
-  Phone?: string;
-  Website?: string;
-  Domain?: string;
-  Subdomain?: string;
-  Instagram?: string;
-  X?: string;
-  Facebook?: string;
-  BusinessHours?: BusinessHours;
-  Photos?: string[];
-  Billboard?: Billboard;
-  Theme?: string;
-  IsOnboarded?: boolean;
-  SubscriptionPlan?: string;
-  Scans?: number;
-  QrCode?: string;
-  Analytics?: Record<string, number>;
-  PaymentProviders?: PaymentProvider[];
-  Integrations?: string[];
-  CreatedAt?: string;
-  UpdatedAt?: string;
+  _id: string;
+  name?: string;
+  category?: string;
+  description?: string;
+  founded?: string;
+  location?: string;
+  email?: string;
+  phone?: string;
+  website?: string;
+  instagram?: string;
+  x?: string;
+  facebook?: string;
+  businessHours?: BusinessHours;
+  photos?: string[];
+  billboard?: Billboard;
+  theme?: string;
+  isOnboarded?: boolean;
+  liveFirm: string;
+  subscriptionPlan?: string;
+  scans?: number;
+  qrCode?: string;
+  analytics?: Record<string, number>;
+  paymentProviders?: PaymentProvider[];
+  integrations?: string[];
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type InitialFirmState = {
