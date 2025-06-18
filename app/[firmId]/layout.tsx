@@ -16,11 +16,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-async function getFirm(firmId: string): Promise<Firm | null> {
+async function getFirm(adminId: string): Promise<Firm | null> {
   const baseUrl = process.env.RAFIKI_FIRM_API_URL;
   if (!baseUrl) throw new Error("missing RAFIKI_FIRM_API_URL");
 
-  const res = await fetch(`${baseUrl}/get-firm?firmId=${firmId}`, {
+  const res = await fetch(`${baseUrl}/firm/admin-firm?id=${adminId}`, {
     cache: "no-store",
   });
 
@@ -36,10 +36,10 @@ async function getFirm(firmId: string): Promise<Firm | null> {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ firmId: string }>;
+  params: Promise<{ adminId: string }>;
 }): Promise<Metadata> {
-  const { firmId } = await params;
-  const firm = await getFirm(firmId);
+  const { adminId } = await params;
+  const firm = await getFirm(adminId);
 
   if (!firm) {
     return {
@@ -59,10 +59,10 @@ export default async function Layout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ firmId: string }>;
+  params: Promise<{ adminId: string }>;
 }) {
-  const { firmId } = await params;
-  const firm = await getFirm(firmId);
+  const { adminId } = await params;
+  const firm = await getFirm(adminId);
 
   if (!firm) {
     return (
