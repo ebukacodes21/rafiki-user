@@ -160,7 +160,7 @@ export const SignupForm = () => {
       headerLabel={`Welcome to ${firm?.name}`}
       backButtonLabel={`Already a client with ${firm?.name}? Log in`}
       backButtonHref={`${routes.LOGIN}`}
-      subTitle="Register with us today for your professional services"
+      subTitle="Register with us today for your professional services."
       topSlot={
         <h1 className="text-3xl text-start font-bold text-blue-600 px-7 italic">
           Powered by Rafiki

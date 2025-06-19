@@ -23,23 +23,29 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-200 text-gray-900">
       {/* Hero Banner */}
-      <div className="flex px-2 py-3 flex-wrap justify-end gap-4">
-        <button
+      <div className="flex items-center px-2 py-3 flex-wrap justify-around gap-4">
+        <div>
+          <p className="font-semibold text-2xl">{firm.name}</p>
+          <p className="italic text-blue-600 font-bold">Powered by Rafiki</p>
+        </div>
+       <div>
+         <button
           onClick={() =>
-            router.push(`/68529197c0ae48884d78da6a/${routes.LOGIN}`)
+            router.push(`${routes.LOGIN}`)
           }
-          className="bg-white text-gray-900 px-6 py-2 rounded-lg font-semibold shadow hover:bg-gray-100 transition"
+          className="bg-white text-gray-900 px-6 py-2 rounded-lg font-semibold shadow hover:bg-gray-100 transition cursor-pointer"
         >
           Login / Signup
         </button>
         <button
           onClick={() =>
-            router.push(`/68529197c0ae48884d78da6a/${routes.SIGNUP}`)
+            router.push(`${routes.SIGNUP}`)
           }
-          className="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-red-600 transition"
+          className="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-red-600 transition cursor-pointer"
         >
           Continue with Google
         </button>
+       </div>
       </div>
       <section className="p-6 sm:p-10 lg:p-16 relative rounded-xl overflow-hidden">
         <div
@@ -56,7 +62,7 @@ export default function Home() {
             <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-bold max-w-3xl drop-shadow-lg">
               {firm.name}
             </h1>
-            <p className="text-white/90 text-md sm:text-lg mt-4 max-w-xl">
+            <p className="text-white/90 font-semibold text-md sm:text-lg mt-4 max-w-xl">
               Modern legal guidance. Personalized service. Built on trust.
             </p>
           </div>

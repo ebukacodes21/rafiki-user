@@ -1,12 +1,12 @@
 "use client";
-import { VerifyForm } from "@/components/auth/verify";
+import { ResetForm } from "@/components/auth/reset";
 import { routes } from "@/constants";
 import { selectCurrentFirm } from "@/redux/features/firm";
 import { useAppSelector } from "@/redux/hooks/typedHooks";
 import Link from "next/link";
 import React, { Suspense, useEffect, useState } from "react";
 
-const VerifyPage = () => {
+const ResetPage = () => {
   const firm = useAppSelector(selectCurrentFirm);
   const [mounted, setIsMounted] = useState<boolean>();
 
@@ -27,10 +27,10 @@ const VerifyPage = () => {
 
       <Suspense fallback={<div>Loading...</div>}>
         {" "}
-        <VerifyForm />
+        <ResetForm />
       </Suspense>
     </div>
   );
 };
 
-export default VerifyPage;
+export default ResetPage;

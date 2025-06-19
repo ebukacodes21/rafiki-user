@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default async function RootLayout({
+export default function AuthLayout({
   children,
 }: {
   children: ReactNode;
@@ -30,3 +30,4 @@ export default async function RootLayout({
     </html>
   );
 }
+

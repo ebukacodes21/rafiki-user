@@ -8,10 +8,11 @@ const ApiConfig = {
 
     findAccount: `${api_base_url}/firm/find-account`,
     verify: `${api_base_url}/firm/verify`,
+    resend: `${api_base_url}/firm/resend-code`,
     forgot: `${api_base_url}/firm/forgot`,
     reset: `${api_base_url}/firm/reset`,
+
     upload: `${api_base_url}/firm/upload`,
-    onboard: `${api_base_url}/firm/onboard`,
 }
 
 export default ApiConfig;

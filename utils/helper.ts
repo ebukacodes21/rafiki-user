@@ -30,7 +30,7 @@ export const fileUploader = async (url: string, formData: FormData) => {
 export const formatError = (err: any) => {
   const errObj = err.response?.data?.error;
   const issues = err.response?.data?.error?.issues;
-  const auth = err.response.data.message;
+  const auth = err.response?.data?.message;
 
   if (Array.isArray(issues) && issues.length > 0) {
     return issues.map((issue: any) => issue.message).join(", ");

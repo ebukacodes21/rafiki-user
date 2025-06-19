@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { COOKIE_NAME } from "@/constants";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const response = NextResponse.json({
             message: 'logout successful'
