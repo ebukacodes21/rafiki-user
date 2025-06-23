@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import ReduxProvider from "@/redux/hooks/provider";
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "@/redux/hooks/themeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,8 +34,15 @@ export default async function Layout({ children }: { children: ReactNode }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ReduxProvider>
-          <Toaster position="top-center" />
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Toaster position="top-center" />
+            {children}
+          </ThemeProvider>
         </ReduxProvider>
       </body>
     </html>

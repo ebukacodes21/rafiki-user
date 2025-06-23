@@ -35,20 +35,10 @@ export type PaymentProvider = {
   status: string; // e.g., "connected", "disconnected"
 }
 
-export type ServiceType = {
-  id?: string;
-  name: string;
-  description?: string;
-  durationMins: number;
-  locationType: string;
-  isActive: boolean;
-}
-
 export type ServiceBooking = {
   id?: string;
   firmID: string;
   clientID: string;
-  serviceType: ServiceType;
   status: string;
   paymentRef: string;
   bookedAt: string;        
@@ -59,14 +49,23 @@ export type ServiceBooking = {
   notes?: string;
 }
 
+export type Diary = {
+  userId: string;          
+  displayName: string;
+  email: string;
+  provider: string;        
+  accessToken: string;
+  refreshToken: string;
+  expiry: string;           
+  calendarId: string;
+  connectedAt: string;     
+};
+
 export type Firm = {
   id?: string;
-  adminID?: string;
-  adminIds?: string[];
   name?: string;
   weeklyHours: Record<string, TimeRange[]>; 
   dateOverrides?: DateSpecificHours[];
-  serviceTypes?: ServiceType[];
   serviceBookings?: ServiceBooking[];
   category?: string;
   description?: string;
@@ -74,9 +73,9 @@ export type Firm = {
   location?: string;
   email?: string;
   phone?: string;
+  diaries: Diary[]
   website?: string;
   liveFirm?: string;
-  serviceUrl?: string;
   instagram?: string;
   x?: string;
   facebook?: string;
@@ -84,11 +83,7 @@ export type Firm = {
   billboard?: Billboard;
   theme?: string;
   subscriptionPlan?: string;
-  scans?: number;
   qrCode?: string;
-  analytics?: Record<string, number>;
-  paymentProviders?: PaymentProvider[];
-  integrations?: string[];
   createdAt?: string;
   updatedAt?: string;
   practiceAreas?: string[];
