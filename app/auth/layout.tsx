@@ -1,4 +1,4 @@
-import ReduxProvider from "@/redux/hooks/reduxProvider";
+import ReduxProvider from "@/redux/hooks/provider";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";

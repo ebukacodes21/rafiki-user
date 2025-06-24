@@ -21,8 +21,9 @@ import { OpenHoursSummary } from "./components/summary";
 
 const BookingPage = () => {
   const firm = useAppSelector(selectCurrentFirm);
-  const weeklyHours = firm?.weeklyHours || {};
-  const dateOverrides = firm?.dateOverrides || [];
+const weeklyHours = React.useMemo(() => firm?.weeklyHours || {}, [firm]);
+const dateOverrides = React.useMemo(() => firm?.dateOverrides || [], [firm]);
+
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string>("");
 
