@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { format } from 'date-fns';
+import * as React from "react";
+import { format } from "date-fns";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 const TIME_OPTIONS = Array.from({ length: 24 * 4 }, (_, index) => {
   const hours = Math.floor(index / 4);
   const minutes = (index % 4) * 15;
   const time = new Date();
   time.setHours(hours, minutes, 0, 0);
-  return format(time, 'HH:mm');
+  return format(time, "HH:mm");
 });
 
 type TimePickerProps = {
@@ -25,35 +25,38 @@ type TimePickerProps = {
   placeholder?: string;
   className?: string;
   disabled?: boolean;
+  options: string[];
 };
 
 export const TimePicker: React.FC<TimePickerProps> = ({
   value,
   onChange,
-  placeholder = 'Select time',
+  placeholder = "Select time",
   className,
   disabled,
+  options,
 }) => {
   return (
- <Select
-  value={value}
-  onValueChange={onChange}
-  disabled={disabled}
->
-  <SelectTrigger
-    className={cn("w-28", className, "appearance-none pr-2")}
-    disabled={disabled}
-  >
-    <SelectValue placeholder={placeholder} />
-  </SelectTrigger>
-  <SelectContent>
-    {TIME_OPTIONS.map((time) => (
-      <SelectItem key={time} value={time}>
-        {time}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
-
+    <Select value={value} onValueChange={onChange} disabled={disabled}>
+      <SelectTrigger
+        className={cn("w-28", className, "appearance-none pr-2")}
+        disabled={disabled}
+      >
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        {options.length === 0 ? (
+          <SelectItem disabled value="no-items">
+            No available times
+          </SelectItem>
+        ) : (
+          options.map((time) => (
+            <SelectItem key={time} value={time}>
+              {time}
+            </SelectItem>
+          ))
+        )}
+      </SelectContent>
+    </Select>
   );
 };

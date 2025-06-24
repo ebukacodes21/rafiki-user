@@ -22,10 +22,9 @@ export const fileUploader = async (url: string, formData: FormData) => {
     });
     return response.data;  
   } catch (error) {
-    return error;  // Return the error to handle it in the frontend
+    return error;  // return the error to handle it in the frontend
   }
 };
-
 
 export const formatError = (err: any) => {
   const errObj = err.response?.data?.error;
@@ -50,3 +49,23 @@ export const formatError = (err: any) => {
 export const formatNumberWithCommas = (value: number): string => {
   return value.toLocaleString("en-US");
 };
+
+export function generateTimeSlots(open: string, close: string, intervalMinutes = 30): string[] {
+  const slots: string[] = [];
+  const [openHour, openMin] = open.split(":").map(Number);
+  const [closeHour, closeMin] = close.split(":").map(Number);
+
+  let current = new Date();
+  current.setHours(openHour, openMin, 0, 0);
+
+  const end = new Date();
+  end.setHours(closeHour, closeMin, 0, 0);
+
+  while (current < end) {
+    const timeStr = current.toTimeString().slice(0, 5); // "HH:mm"
+    slots.push(timeStr);
+    current = new Date(current.getTime() + intervalMinutes * 60000);
+  }
+
+  return slots;
+}

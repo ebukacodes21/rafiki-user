@@ -1,0 +1,56 @@
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { apiCall, formatError } from "@/utils/helper";
+import { routes } from "@/constants";
+import { ClipLoader } from "react-spinners";
+import { useAppSelector } from "@/redux/hooks/typedHooks";
+import { selectCurrentFirm } from "@/redux/features/firm";
+
+const CallbackSignup = () => {
+  const router = useRouter();
+  const firm = useAppSelector(selectCurrentFirm);
+  const [statusMessage, setStatusMessage] = useState(
+    "Signing you up with Google..."
+  );
+  const [loading, setLoading] = useState<boolean>(false);
+  useEffect(() => {
+    setLoading(true);
+    const hash = window.location.hash;
+    const params = new URLSearchParams(hash.substring(1));
+    const token = params.get("id_token");
+
+    if (!token) {
+      setStatusMessage("Invalid or missing token. Please try again.");
+      setLoading(false);
+      return;
+    }
+
+    apiCall("/api/signup-google", "POST", {
+      token,
+      firmName: firm?.name,
+      firmID: firm?.id,
+    })
+      .then((result) => {
+        if (result?.name === "AxiosError") {
+          setStatusMessage(formatError(result));
+          setLoading(false);
+          return;
+        }
+        window.location.href = `/${firm?.adminID}${routes.DASHBOARD}`;
+      })
+      .catch((error) => {
+        setStatusMessage(formatError(error));
+        setLoading(false);
+      });
+  }, [router, firm?.id, firm?.name, firm?.adminID]);
+
+  return (
+    <div className="flex space-x-2">
+      <p className="text-md text-gray-900 max-w-md">{statusMessage}</p>
+      <ClipLoader loading={loading} color="black" size={20} />
+    </div>
+  );
+};
+
+export default CallbackSignup;

@@ -64,9 +64,9 @@ export type Diary = {
 export type Firm = {
   id?: string;
   name?: string;
+  adminID: string
   weeklyHours: Record<string, TimeRange[]>; 
   dateOverrides?: DateSpecificHours[];
-  serviceBookings?: ServiceBooking[];
   category?: string;
   description?: string;
   founded?: string;
