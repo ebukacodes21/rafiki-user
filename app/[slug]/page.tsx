@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { useAppSelector } from "@/redux/hooks/typedHooks";
 import { selectCurrentFirm } from "@/redux/features/firm";
 import { ModeToggle } from "@/components/toogle";
-import { Scale } from "lucide-react";
+import { ScaleIcon } from "@heroicons/react/24/outline";
 import { generateTimeSlots } from "@/utils/helper";
 import { OpenHoursSummary } from "./components/summary";
 import { TimezoneInfo } from "./components/timezone";
@@ -79,7 +79,7 @@ const BookingPage = () => {
     <div className="max-w-md px-5 md:px-0 mx-auto mt-10 space-y-6">
       <ModeToggle />
       <div className="flex items-center flex-col gap-1">
-        <Scale size={30} className="text-primary mb-2" />
+        <ScaleIcon className="h-10 w-10 text-primary mb-2" />
 
         <div className="flex items-center gap-1">
           <h1 className="text-2xl font-semibold text-center">{firm?.name}</h1>
@@ -145,7 +145,7 @@ const BookingPage = () => {
         disabled={!selectedDate || !selectedTime}
         className="cursor-pointer md:w-full"
       >
-        Book Appointment
+        Book Consultation
       </Button>
 
       <TimezoneInfo />
