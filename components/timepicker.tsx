@@ -39,7 +39,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   return (
     <Select value={value} onValueChange={onChange} disabled={disabled}>
       <SelectTrigger
-        className={cn("w-28", className, "appearance-none pr-2")}
+        className={cn("w-52", className, "appearance-none pr-2")}
         disabled={disabled}
       >
         <SelectValue placeholder={placeholder} />

@@ -25,14 +25,41 @@ export type DateSpecificHours = {
   isClosed: boolean;
 }
 
+export type WeeklyHour = {
+  day: string;
+  open: string;
+  close: string;
+  active: boolean;
+}
+
+export type Availability = {
+  timeZone: string;
+  weeklyHours: Record<string, TimeRange[]>; 
+}
+
 export type Billboard = {
   title: string;
   image: string;
 }
 
-export type PaymentProvider = {
-  name: string;
-  status: string; // e.g., "connected", "disconnected"
+type ProviderDetails = {
+	// Paystack
+	subaccountCode:   string  
+	settlementBank:   string 
+	percentageCharge: number 
+
+	// Stripe
+	accountId:    string 
+	accessToken:  string 
+	refreshToken: string 
+	stripeUserId: string 
+}
+
+type PaymentProvider = {
+	name:        string        
+	status:      string         
+	connectAt:  Date       
+	details:     ProviderDetails
 }
 
 export type ServiceBooking = {
@@ -63,10 +90,12 @@ export type Diary = {
 
 export type Firm = {
   id?: string;
+  adminID?: string;
+  adminIds?: string[];
   name?: string;
-  adminID: string
-  weeklyHours: Record<string, TimeRange[]>; 
+  availability: Availability; 
   dateOverrides?: DateSpecificHours[];
+  serviceBookings?: ServiceBooking[];
   category?: string;
   description?: string;
   founded?: string;
@@ -76,6 +105,7 @@ export type Firm = {
   diaries: Diary[]
   website?: string;
   liveFirm?: string;
+  serviceUrl?: string;
   instagram?: string;
   x?: string;
   facebook?: string;
@@ -83,10 +113,20 @@ export type Firm = {
   billboard?: Billboard;
   theme?: string;
   subscriptionPlan?: string;
+  scans?: number;
   qrCode?: string;
+  analytics?: Record<string, number>;
+  paymentProviders?: PaymentProvider[];
+  integrations?: string[];
   createdAt?: string;
   updatedAt?: string;
   practiceAreas?: string[];
+  consultationFee: {
+    amount: number;
+    enabled: boolean;
+    unit: string;
+    currency: string;
+  }
 }
 
 export type InitialFirmState = {

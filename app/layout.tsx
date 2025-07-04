@@ -1,26 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import ReduxProvider from "@/redux/hooks/provider";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@/redux/hooks/themeProvider";
+import { Inter } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ adminId: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata() {
   return {
     title: "Rafiki",
     description: "Connecting you to Legal Practitioners",
@@ -31,7 +23,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+         className={`${inter.variable} antialiased`}
       >
         <ReduxProvider>
           <ThemeProvider

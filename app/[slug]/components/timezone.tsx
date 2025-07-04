@@ -3,40 +3,42 @@
 import * as React from "react";
 import { format } from "date-fns";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export const TimezoneInfo = () => {
-  const [timezone, setTimezone] = React.useState("");
-  const [currentTime, setCurrentTime] = React.useState("");
+type TimezoneProp = {
+  timeZone: string;
+  setTimeZone: (value: string) => void
+  zones: string[]
+}
 
-  React.useEffect(() => {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setTimezone(tz);
-
-    const updateTime = () => {
-      const now = new Date();
-      setCurrentTime(format(now, "hh:mm aaaaa'm'"));
-    };
-
-    updateTime(); // run once immediately
-    const interval = setInterval(updateTime, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
+export const TimezoneInfo: React.FC<TimezoneProp> = ({ timeZone, setTimeZone, zones }) => {
   return (
  <div className="rounded-md border p-4 bg-muted/50">
-  <p className="text-sm font-medium text-foreground mb-2">Time Zone</p>
-  <div className="flex items-center gap-3 text-sm text-muted-foreground">
-    <GlobeAltIcon className="h-5 w-5 text-primary" />
-    <div>
-      <p>
-        <strong>{timezone}</strong>
-      </p>
-      <p className="text-xs text-muted-foreground">
-        Current time: <strong>{currentTime}</strong>
-      </p>
-    </div>
-  </div>
+    <Label className="text-sm font-medium">Time Zone</Label>
+          <div className="w-full">
+            <Select value={timeZone} onValueChange={setTimeZone}>
+              <SelectTrigger className="">
+                <SelectValue placeholder="Choose time zone" />
+              </SelectTrigger>
+              <SelectContent className="max-h-60 overflow-auto">
+                {zones.map((tz) => {
+                  const now = new Date();
+                  const offset = new Intl.DateTimeFormat("en-US", {
+                    timeZone: tz,
+                    timeZoneName: "short",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }).format(now);
+                  return (
+                    <SelectItem key={tz} value={tz}>
+                      {offset} — {tz}
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
+          </div>
 </div>
   );
 };

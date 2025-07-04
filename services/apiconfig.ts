@@ -13,6 +13,9 @@ const ApiConfig = {
     reset: `${api_base_url}/firm/reset`,
 
     upload: `${api_base_url}/firm/upload`,
+
+    confirmConsultation: `${api_base_url}/firm/confirm-consulation`,
+    getBookedSlots: `${api_base_url}/firm/get-booked-slots`,
 }
 
 export default ApiConfig;

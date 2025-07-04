@@ -39,3 +39,9 @@ export const ResetPasswordSchema = z
     message: "Passwords do not match!",
     path: ["confirmPassword"],
   });
+
+export const BookingSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email"),
+  notes: z.string().optional(),
+});
