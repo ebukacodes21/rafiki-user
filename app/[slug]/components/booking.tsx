@@ -138,7 +138,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
     };
 
     const result = await apiCall("/api/confirm-consultation", "POST", payload);
-    console.log(result);
     if (result.name === "AxiosError") {
       setIsSubmitting(false);
       toast.error(formatError(result));
@@ -147,7 +146,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
     setIsSubmitting(false);
     setSuccess(true); 
-    toast.success(result);
+    toast.success(result.message);
   };
 
   if (success) {
