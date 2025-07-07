@@ -39,6 +39,8 @@ type BookingFormValues = z.infer<typeof BookingSchema>;
 interface BookingFormProps {
   selectedDate: Date;
   selectedTime: string;
+  startTime: string;
+  endTime: string;
   duration: number;
   fee: string;
   onClose: () => void;
@@ -91,14 +93,16 @@ const InputField = <TFieldValues extends Record<string, any>>({
 };
 
 const BookingForm: React.FC<BookingFormProps> = ({
+  startTime,
+  endTime,
   selectedDate,
   selectedTime,
   duration,
   fee,
   onClose,
-  timeZone
+  timeZone,
 }) => {
-  const firm = useAppSelector(selectCurrentFirm)
+  const firm = useAppSelector(selectCurrentFirm);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
@@ -106,22 +110,26 @@ const BookingForm: React.FC<BookingFormProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<BookingFormValues>({
     resolver: zodResolver(BookingSchema),
   });
 
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
-    const [startTime] = selectedTime.split(" - ");
     const datePart = format(selectedDate, "yyyy-MM-dd");
-    const localDateTime = `${datePart}T${startTime}:00`;
 
-    // Convert to UTC based on user's timezone
-    const scheduledFor = fromZonedTime(localDateTime, timeZone);
+    // combine date and local start/end times
+    const localStart = `${datePart}T${startTime}:00`;
+    const localEnd = `${datePart}T${endTime}:00`;
+
+    // convert to UTC from user's timezone
+    const startUTC = fromZonedTime(localStart, timeZone);
+    const endUTC = fromZonedTime(localEnd, timeZone);
+
     const payload = {
       ...data,
-      scheduledFor: scheduledFor.toISOString(),
+      scheduledFor: startUTC.toISOString(),
+      endTime: endUTC.toISOString(), 
       timeRange: selectedTime,
       duration,
       fee,
@@ -130,14 +138,16 @@ const BookingForm: React.FC<BookingFormProps> = ({
     };
 
     const result = await apiCall("/api/confirm-consultation", "POST", payload);
-    console.log(result)
+    console.log(result);
     if (result.name === "AxiosError") {
-      setIsSubmitting(false)
-      toast.error(formatError(result))
-      return
+      setIsSubmitting(false);
+      toast.error(formatError(result));
+      return;
     }
 
-    setIsSubmitting(false)
+    setIsSubmitting(false);
+    setSuccess(true); 
+    toast.success(result);
   };
 
   if (success) {
@@ -227,7 +237,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
             icon={ChatBubbleOvalLeftEllipsisIcon}
             name="notes"
             type="textarea"
-            placeholder="Anything you'd like to add"
+            placeholder="Add any context or notes to help the firm prepare better"
             register={register}
             error={errors.notes?.message}
           />

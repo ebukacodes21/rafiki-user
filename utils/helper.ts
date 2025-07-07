@@ -1,4 +1,6 @@
 import axios from "axios";
+import { format } from "date-fns";
+import { fromZonedTime, toZonedTime } from "date-fns-tz";
 
 export const apiCall = async (url: string, method: string, data?: object) => {
   try {
@@ -27,9 +29,9 @@ export const fileUploader = async (url: string, formData: FormData) => {
 };
 
 export const formatError = (err: any) => {
-  const errObj = err.response?.data?.error;
-  const issues = err.response?.data?.error?.issues;
-  const auth = err.response?.data?.message;
+  const errObj = err?.response?.data?.error;
+  const issues = err?.response?.data?.error?.issues;
+  const auth = err?.response?.data?.message;
 
   if (Array.isArray(issues) && issues.length > 0) {
     return issues.map((issue: any) => issue.message).join(", ");
@@ -68,4 +70,41 @@ export function generateTimeSlots(open: string, close: string, intervalMinutes =
   }
 
   return slots;
+}
+
+export function timeStringToMinutes(time: string) {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+export function minutesToTimeString(mins: number) {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
+}
+
+export function firmToClientTime(
+  date: Date,
+  timeStr: string,
+  firmTZ: string,
+  clientTZ: string
+): string {
+  const [hour, minute] = timeStr.split(":").map(Number);
+  const firmLocal = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute);
+  const utc = fromZonedTime(firmLocal, firmTZ);
+  const clientTime = toZonedTime(utc, clientTZ);
+  return format(clientTime, "HH:mm");
+}
+
+export function clientToFirmDate(
+  date: Date,
+  timeStr: string,
+  clientTZ: string,
+  firmTZ: string
+): Date {
+  const [hour, minute] = timeStr.split(":").map(Number);
+  const clientLocal = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute));
+  const utc = fromZonedTime(clientLocal, clientTZ);     
+  const firmLocal = toZonedTime(utc, firmTZ);        
+  return firmLocal;
 }

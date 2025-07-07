@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
       url: ApiConfig.getBookedSlots,
       params: {
         firmId: searchParams.get("firmId"),
-        day: searchParams.get("day"),
       },
     });
 
